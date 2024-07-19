@@ -1,31 +1,32 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const FILTERS = {
+  name: '가격',
+  content: [
+    {
+      id: 1,
+      name: '무료',
+      value: 'free',
+      enrollType: 0,
+    },
+    {
+      id: 2,
+      name: '유료',
+      value: 'paid',
+      enrollType: 0,
+    },
+  ],
+};
+
 const SearchFilter = () => {
-  const filters = {
-    name: '가격',
-    content: [
-      {
-        id: 1,
-        name: '무료',
-        value: 'free',
-        enrollType: 0,
-      },
-      {
-        id: 2,
-        name: '유료',
-        value: 'paid',
-        enrollType: 0,
-      },
-    ],
-  };
 
   return (
     <Wrapper>
       <FilterDiv>
-        <FilterName>{filters.name}</FilterName>
+        <FilterName>{FILTERS.name}</FilterName>
         <FilterContent>
-          {filters.content.map((filter) => (
+          {FILTERS.content.map((filter) => (
             <div key={filter.id}>
               <button>
                 <span>{filter.name}</span>
