@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const FILTERS = {
@@ -20,6 +21,26 @@ const FILTERS = {
 };
 
 const SearchFilter = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    // const existingParams = decodeURIComponent(searchParams.toString());
+    const existingParams = searchParams.getAll('price');
+    const clickedPrice = e.currentTarget.textContent;
+    if (clickedPrice) {
+      if (existingParams.includes(clickedPrice)) {
+        searchParams.delete('price');
+        existingParams.forEach((price)=> {
+          if (price !== clickedPrice) {
+            searchParams.append('price', price);
+          }
+        })
+      } else {
+        searchParams.append('price', clickedPrice);
+      }
+      setSearchParams(searchParams);
+    }
+  };
 
   return (
     <Wrapper>
@@ -27,8 +48,17 @@ const SearchFilter = () => {
         <FilterName>{FILTERS.name}</FilterName>
         <FilterContent>
           {FILTERS.content.map((filter) => (
-            <div key={filter.id}>
-              <button>
+            <div key={filter.id} onClick={handleClick}>
+              <button
+                style={
+                  searchParams.getAll('price').includes(filter.name)
+                    ? {
+                        backgroundColor: '#524FA1',
+                        color: '#F0F1F3',
+                      }
+                    : {}
+                }
+              >
                 <span>{filter.name}</span>
               </button>
             </div>
@@ -86,7 +116,7 @@ const FilterDiv = styled.div`
   }
   span {
   }
-`
+`;
 
 const FilterName = styled.div`
   min-width: 6rem;
@@ -97,7 +127,7 @@ const FilterName = styled.div`
   font-weight: 700;
   display: flex;
   justify-content: flex-start !important;
-`
+`;
 
 const FilterContent = styled.div`
   padding: 0px 0.5rem;
