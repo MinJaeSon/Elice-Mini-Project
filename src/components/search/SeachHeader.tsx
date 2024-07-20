@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import SearchBar from '@components/SearchBar';
-import SearchFilter from '@components/SearchFilter';
+import SearchBar from '@/components/search/SearchBar';
+import SearchFilter from '@/components/search/SearchFilter';
 
 const SeachHeader = () => {
   return (
