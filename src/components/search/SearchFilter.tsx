@@ -17,6 +17,12 @@ const FILTERS = {
       value: 'paid',
       enrollType: 0,
     },
+    {
+      id: 3,
+      name: '구독',
+      value: 'subscribe',
+      enrollType: 4,
+    },
   ],
 };
 
