@@ -65,8 +65,8 @@ const ImageDiv = styled.div`
 `;
 
 const Image = styled.div<{ url: string | null }>`
-  ${({ url }) => (url ? `background-image: url(${url});` : '')}
-  /* background-image: url(https://cdn-api.elice.io/api/file/3cf66c25a8874700a875ec05c37a3f5c/580x290-1.png?se=2024-08-01T00%3A15%3A00Z&sp=r&sv=2021-12-02&sr=b&sig=WnTle4RGx2OLNtPxQltbFipryW3ogxFTHIYqfBsh7XE%3D); */
+  background-image: ${({ url }) =>
+    url ? `url(${url})` : 'url(https://elice.io/images/og-image-ko.png)'};
   width: 100%;
   min-width: 100%;
   height: 100%;
