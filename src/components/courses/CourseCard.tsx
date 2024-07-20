@@ -39,6 +39,7 @@ const Wrapper = styled.div`
   position: relative;
   box-sizing: border-box;
   overflow: hidden;
+  margin: 12px;
   cursor: pointer;
   &:hover {
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
@@ -77,7 +78,6 @@ const ContentDiv = styled.div`
 `;
 
 const ContentText = styled.div`
-  color: #7d7e80;
   color: #5e5f61;
   padding: 20px;
 `;
