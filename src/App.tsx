@@ -5,19 +5,6 @@ import Courses from '@/components/courses/Courses';
 import { useSearchParams } from 'react-router-dom';
 import api from './api/api';
 
-const FILTER_CONDITIONS = JSON.stringify({
-  $and: [
-    { title: '%c언어' },
-    {
-      $or: [
-        { enroll_type: 0, is_free: true },
-        { enroll_type: 0, is_free: false },
-        { enroll_type: 4 },
-      ],
-    },
-  ],
-});
-
 const COUNT = 20;
 
 function App() {
@@ -30,17 +17,28 @@ function App() {
   const [searchParams, setSearchParams] = useSearchParams();
   const price = searchParams.getAll('price');
 
+  const filter_conditions = JSON.stringify({
+    $and: [
+      {
+        $or: [
+          price.includes('무료') ? { enroll_type: 0, is_free: true } : null,
+          price.includes('유료') ? { enroll_type: 0, is_free: false } : null,
+          price.includes('구독') ? { enroll_type: 4 } : null,
+        ].filter((condition) => condition !== null),
+      },
+    ],
+  });
+
   const fetchData = async () => {
     await api
       .get('/org/academy/course/list/', {
         params: {
-          filter_conditions: FILTER_CONDITIONS,
+          filter_conditions: filter_conditions,
           offset: offset,
           count: COUNT,
         },
       })
       .then((res) => {
-        console.log(res.data);
         setCourseCount(res.data.course_count);
         setCourses(res.data.courses);
       })
@@ -56,7 +54,7 @@ function App() {
   return (
     <div>
       <SeachHeader />
-      <Courses courses={courses} courseCount={courseCount} />
+      <Courses courses={courses} courseCount={courseCount}/>
     </div>
   );
 }
