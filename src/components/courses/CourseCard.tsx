@@ -1,23 +1,28 @@
+import CoursesType from '@/typing/typing';
 import React from 'react';
 import styled from 'styled-components';
 
-const CourseCard = () => {
+const CourseCard = (course: CoursesType) => {
   return (
     <Wrapper>
       <ImageDiv>
-        <Image />
+        <Image url={course.image_file_url} />
       </ImageDiv>
       <ContentDiv>
         <ContentText>
-          <Label>알고리즘</Label>
-          <Title>[무료] 떠먹여주는 알고리즘</Title>
-          <Description>
-            다양한 알고리즘 코딩테스트 문항을 통해 어떠한 알고리즘 유형이 강하고 약한지 어쩌구저쩌구
-          </Description>
+          <Label>미분류</Label>
+          <Title>{course.title}</Title>
+          <Description>{course.short_description}</Description>
         </ContentText>
         <PriceDiv>
           <PriceText>
-            <span>무료</span>
+            {course.enroll_type === 4 ? (
+              <span>구독</span>
+            ) : course.is_free ? (
+              <span>무료</span>
+            ) : (
+              <span>유료</span>
+            )}
           </PriceText>
         </PriceDiv>
       </ContentDiv>
@@ -59,8 +64,9 @@ const ImageDiv = styled.div`
   justify-content: center;
 `;
 
-const Image = styled.div`
-  background-image: url(https://cdn-api.elice.io/api/file/3cf66c25a8874700a875ec05c37a3f5c/580x290-1.png?se=2024-08-01T00%3A15%3A00Z&sp=r&sv=2021-12-02&sr=b&sig=WnTle4RGx2OLNtPxQltbFipryW3ogxFTHIYqfBsh7XE%3D);
+const Image = styled.div<{ url: string | null }>`
+  ${({ url }) => (url ? `background-image: url(${url});` : '')}
+  /* background-image: url(https://cdn-api.elice.io/api/file/3cf66c25a8874700a875ec05c37a3f5c/580x290-1.png?se=2024-08-01T00%3A15%3A00Z&sp=r&sv=2021-12-02&sr=b&sig=WnTle4RGx2OLNtPxQltbFipryW3ogxFTHIYqfBsh7XE%3D); */
   width: 100%;
   min-width: 100%;
   height: 100%;
