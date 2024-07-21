@@ -30,9 +30,7 @@ const Pagination: React.FC<PaginationProps> = ({
 }) => {
   const [isHover, setIsHover] = useState<hoverStateType>({ prev: false, next: false });
   const [totalPage, setTotalPage] = useState(0);
-  const [visiblePages, setVisiblePages] = useState<number[]>(
-    Array.from({ length: totalPage >= 5 ? 5 : totalPage }, (_, i) => i + 1),
-  );
+  const [visiblePages, setVisiblePages] = useState<number[]>([]);
   const [isDisable, setIsDisable] = useState(false);
 
   const handleArrowLeftHover = () => {
@@ -76,6 +74,11 @@ const Pagination: React.FC<PaginationProps> = ({
     setTotalPage(Math.ceil(courseCount / count));
     console.log('totalPage:', totalPage);
   }, [courseCount, searchParams]);
+
+  useEffect(() => {
+    const initialVisiblePages = totalPage >= 5 ? 5 : totalPage;
+    setVisiblePages(Array.from({ length: initialVisiblePages }, (_, i) => i + 1));
+  }, [totalPage]);
 
   return (
     <Wrapper>
