@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import CourseCard from './CourseCard';
 import Pagination from './Pagination';
@@ -22,8 +22,14 @@ const Courses: React.FC<CoursesProps> = ({
   currentPage,
   setCurrentPage,
 }) => {
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (ref) ref.current?.scrollIntoView();
+  }, [currentPage]);
+
   return (
-    <Wrapper>
+    <Wrapper ref={ref}>
       <TotalDiv>
         <TotalText>전체 {courseCount}개</TotalText>
       </TotalDiv>
