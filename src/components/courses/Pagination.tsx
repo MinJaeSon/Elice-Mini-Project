@@ -9,6 +9,8 @@ type hoverStateType = {
   next: boolean;
 };
 
+type visiblePagesType = {};
+
 interface PaginationProps {
   courseCount: number;
   courses: CoursesType[];
@@ -50,7 +52,9 @@ const Pagination: React.FC<PaginationProps> = ({
   const handleClick = (number: number) => {
     setCurrentPage(number);
     setOffset((number - 1) * 20);
-    const updatedVisiblePages = Array.from({ length: 5 }, (_, i) => number + i - 2);
+    const updatedVisiblePages = Array.from({ length: 5 }, (_, i) =>
+      number <= 2 ? i + 1 : number >= totalPage - 1 ? totalPage - 4 + i : number + i - 2,
+    );
     setVisiblePages(updatedVisiblePages);
   };
 
