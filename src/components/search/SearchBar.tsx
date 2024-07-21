@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import searchIcon from '@assets/search_icon.svg';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { keywordState } from '@/atoms/keywordState';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useSearchParams } from 'react-router-dom';
 
@@ -15,8 +13,20 @@ const SearchBar = () => {
     setInput(e.target.value);
   };
 
+  const handleUrlQuery = () => {
+    if (searchParams.has('keyword')) {
+      searchParams.set('keyword', debouncedKeyword);
+      if (!debouncedKeyword) {
+        searchParams.delete('keyword');
+      }
+    } else {
+      searchParams.append('keyword', debouncedKeyword);
+    }
+    setSearchParams(searchParams);
+  };
+
   useEffect(() => {
-    console.log(debouncedKeyword);
+    handleUrlQuery();
   }, [debouncedKeyword]);
 
   return (

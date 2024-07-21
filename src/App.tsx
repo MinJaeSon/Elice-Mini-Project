@@ -16,9 +16,11 @@ function App() {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const price = searchParams.getAll('price');
+  const keyword = searchParams.get('keyword');
 
   const filter_conditions = JSON.stringify({
     $and: [
+      keyword ? {title: `%${keyword}%`} : {},
       {
         $or: [
           price.includes('무료') ? { enroll_type: 0, is_free: true } : null,
@@ -49,12 +51,12 @@ function App() {
 
   useEffect(() => {
     fetchData();
-  }, [offset, searchParams]);
+  }, [offset, searchParams, keyword]);
 
   return (
     <div>
       <SeachHeader />
-      <Courses courses={courses} courseCount={courseCount}/>
+      <Courses courses={courses} courseCount={courseCount} />
     </div>
   );
 }
