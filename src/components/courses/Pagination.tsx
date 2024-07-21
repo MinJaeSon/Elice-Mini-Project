@@ -33,7 +33,6 @@ const Pagination: React.FC<PaginationProps> = ({
   const [isHover, setIsHover] = useState<hoverStateType>({ prev: false, next: false });
   const [totalPage, setTotalPage] = useState(0);
   const [visiblePages, setVisiblePages] = useState<number[]>([]);
-  const [isDisable, setIsDisable] = useState(false);
 
   const handleArrowLeftHover = () => {
     setIsHover((prevState) => ({
@@ -88,7 +87,8 @@ const Pagination: React.FC<PaginationProps> = ({
     <Wrapper>
       <ArrowButton
         as={PrevButton}
-        stroke={isHover.prev ? '#524fa1' : '#666'}
+        stroke={currentPage === 1 ? '#ccc' : isHover.prev ? '#524fa1' : '#666'}
+        disable={currentPage === 1}
         onMouseOver={handleArrowLeftHover}
         onMouseLeave={handleArrowLeftHover}
         onClick={handlePrevPage}
@@ -106,7 +106,8 @@ const Pagination: React.FC<PaginationProps> = ({
       </PageDiv>
       <ArrowButton
         as={NextButton}
-        stroke={isHover.next ? '#524fa1' : '#666'}
+        stroke={currentPage === totalPage ? '#ccc' : isHover.next ? '#524fa1' : '#666'}
+        disable={currentPage === totalPage}
         onMouseOver={handleArrowRightHover}
         onMouseLeave={handleArrowRightHover}
         onClick={handleNextPage}
@@ -124,7 +125,7 @@ const Wrapper = styled.div`
   margin-top: 12px;
 `;
 
-const ArrowButton = styled.img`
+const ArrowButton = styled.img<{ disable: boolean }>`
   width: 17px;
   height: 17px;
   padding: 3.5px;
@@ -133,13 +134,13 @@ const ArrowButton = styled.img`
   &:first-child {
     margin-right: 0.375rem;
     &:hover {
-      background-color: #efeffd;
+      ${({ disable }) => (disable ? `cursor: not-allowed;` : `background-color: #efeffd;`)}
     }
   }
   &:last-child {
     margin-left: 0.375rem;
     &:hover {
-      background-color: #efeffd;
+      ${({ disable }) => (disable ? `cursor: not-allowed;` : `background-color: #efeffd;`)}
     }
   }
 `;
