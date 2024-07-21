@@ -42,6 +42,8 @@
 	└─ typing             // 재사용되는 type 및 interface를 관리합니다.
 ```
 
+<br/>
+
 ## 구현 방식
 
 ### UI
