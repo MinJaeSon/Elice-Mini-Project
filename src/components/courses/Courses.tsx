@@ -4,6 +4,7 @@ import CourseCard from './CourseCard';
 import Pagination from './Pagination';
 import OrgAcademdyCourseListResponse from '@/typing/typing';
 import CoursesType from '@/typing/typing';
+import NoResult from '../NoResult';
 
 interface CoursesProps {
   courseCount: number;
@@ -26,6 +27,35 @@ const Courses: React.FC<CoursesProps> = ({
 }) => {
   const ref = useRef<HTMLDivElement | null>(null);
 
+  const renderNoResult = () => {
+    if (courseCount > 0) return;
+
+    return <NoResult />;
+  };
+
+  const renderCourses = () => {
+    return (
+      <>
+        <CourseDiv>
+          {courses.map((course) => (
+            <CourseCard key={course.id} {...course} />
+          ))}
+        </CourseDiv>
+        {courseCount > 20 && (
+          <Pagination
+            courseCount={courseCount}
+            courses={courses}
+            count={count}
+            setOffset={setOffset}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            searchParams={searchParams}
+          />
+        )}
+      </>
+    );
+  };
+
   useEffect(() => {
     if (ref) ref.current?.scrollIntoView();
   }, [currentPage]);
@@ -35,22 +65,8 @@ const Courses: React.FC<CoursesProps> = ({
       <TotalDiv>
         <TotalText>전체 {courseCount}개</TotalText>
       </TotalDiv>
-      <CourseDiv>
-        {courses.map((course) => (
-          <CourseCard key={course.id} {...course} />
-        ))}
-      </CourseDiv>
-      {courseCount > 20 && (
-        <Pagination
-          courseCount={courseCount}
-          courses={courses}
-          count={count}
-          setOffset={setOffset}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          searchParams={searchParams}
-        />
-      )}
+      {renderNoResult()}
+      {renderCourses()}
     </Wrapper>
   );
 };
