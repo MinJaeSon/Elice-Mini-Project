@@ -5,9 +5,10 @@ import { useDebounce } from '@/hooks/useDebounce';
 import { useSearchParams } from 'react-router-dom';
 
 const SearchBar = () => {
-  const [input, setInput] = useState('');
-  const debouncedKeyword = useDebounce(input, 500);
   const [searchParams, setSearchParams] = useSearchParams();
+  const existingParams = searchParams.get('keyword');
+  const [input, setInput] = useState(existingParams || '');
+  const debouncedKeyword = useDebounce(input, 500);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
