@@ -16,6 +16,7 @@ interface PaginationProps {
   setOffset: React.Dispatch<React.SetStateAction<number>>;
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  searchParams: URLSearchParams;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
@@ -25,12 +26,14 @@ const Pagination: React.FC<PaginationProps> = ({
   setOffset,
   currentPage,
   setCurrentPage,
+  searchParams,
 }) => {
   const [isHover, setIsHover] = useState<hoverStateType>({ prev: false, next: false });
   const [totalPage, setTotalPage] = useState(0);
   const [visiblePages, setVisiblePages] = useState<number[]>(
-    Array.from({ length: 5 }, (_, i) => i + 1),
+    Array.from({ length: totalPage >= 5 ? 5 : totalPage }, (_, i) => i + 1),
   );
+  const [isDisable, setIsDisable] = useState(false);
 
   const handleArrowLeftHover = () => {
     setIsHover((prevState) => ({
@@ -53,9 +56,26 @@ const Pagination: React.FC<PaginationProps> = ({
     setVisiblePages(updatedVisiblePages);
   };
 
+  const handlePrevPage = () => {
+    if (currentPage === 1) return;
+    setCurrentPage((prev) => prev - 1);
+    setOffset((currentPage - 2) * 20);
+    const updatedVisiblePages = Array.from({ length: 5 }, (_, i) => currentPage + i - 3);
+    setVisiblePages(updatedVisiblePages);
+  };
+
+  const handleNextPage = () => {
+    if (currentPage === totalPage) return;
+    setCurrentPage((prev) => prev + 1);
+    setOffset(currentPage * 20);
+    const updatedVisiblePages = Array.from({ length: 5 }, (_, i) => currentPage + i - 1);
+    setVisiblePages(updatedVisiblePages);
+  };
+
   useEffect(() => {
     setTotalPage(Math.ceil(courseCount / count));
-  }, [courseCount]);
+    console.log('totalPage:', totalPage);
+  }, [courseCount, searchParams]);
 
   return (
     <Wrapper>
@@ -64,6 +84,7 @@ const Pagination: React.FC<PaginationProps> = ({
         stroke={isHover.prev ? '#524fa1' : '#666'}
         onMouseOver={handleArrowLeftHover}
         onMouseLeave={handleArrowLeftHover}
+        onClick={handlePrevPage}
       />
       <PageDiv>
         {visiblePages.map((number) => (
@@ -81,6 +102,7 @@ const Pagination: React.FC<PaginationProps> = ({
         stroke={isHover.next ? '#524fa1' : '#666'}
         onMouseOver={handleArrowRightHover}
         onMouseLeave={handleArrowRightHover}
+        onClick={handleNextPage}
       />
     </Wrapper>
   );
