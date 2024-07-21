@@ -1,13 +1,34 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import searchIcon from '@assets/search_icon.svg';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { keywordState } from '@/atoms/keywordState';
+import { useDebounce } from '@/hooks/useDebounce';
+import { useSearchParams } from 'react-router-dom';
 
 const SearchBar = () => {
+  const [input, setInput] = useState('');
+  const debouncedKeyword = useDebounce(input, 500);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  };
+
+  useEffect(() => {
+    console.log(debouncedKeyword);
+  }, [debouncedKeyword]);
+
   return (
     <Wrapper>
       <SearchIcon src={searchIcon} alt="search icon" />
       <InputDiv>
-        <InputBox type="text" placeholder="배우고 싶은 언어, 기술을 검색해 보세요" />
+        <InputBox
+          type="text"
+          placeholder="배우고 싶은 언어, 기술을 검색해 보세요"
+          value={input}
+          onChange={handleChange}
+        />
       </InputDiv>
     </Wrapper>
   );
@@ -33,7 +54,7 @@ const SearchIcon = styled.img`
 `;
 
 const InputDiv = styled.div`
-width: 100%;
+  width: 100%;
   margin: 0 16px;
 `;
 
