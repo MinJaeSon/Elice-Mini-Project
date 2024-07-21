@@ -53,6 +53,9 @@ const Wrapper = styled.div`
   background-color: #fff;
   border: 1px solid rgb(201, 202, 204);
   border-radius: 0.25rem;
+  &:focus {
+    border: 1px solid #524fa1;
+  }
 `;
 
 const SearchIcon = styled.img`
@@ -71,8 +74,7 @@ const InputBox = styled.input`
   padding: 12px 0;
   border: none;
   background-color: transparent;
-  font-size: 1rem;
+  font-size: 0.875rem;
   outline: none;
   line-height: 1.5;
-  font-family: inherit;
 `;
