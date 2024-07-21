@@ -20,7 +20,7 @@ function App() {
 
   const filter_conditions = JSON.stringify({
     $and: [
-      keyword ? {title: `%${keyword}%`} : {},
+      keyword ? { title: `%${keyword}%` } : {},
       {
         $or: [
           price.includes('무료') ? { enroll_type: 0, is_free: true } : null,
@@ -56,7 +56,14 @@ function App() {
   return (
     <div>
       <SeachHeader />
-      <Courses courses={courses} courseCount={courseCount} />
+      <Courses
+        courses={courses}
+        courseCount={courseCount}
+        count={COUNT}
+        setOffset={setOffset}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 }

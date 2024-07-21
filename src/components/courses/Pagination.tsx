@@ -1,29 +1,61 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as PrevButton } from '@assets/arrow_left.svg';
 import { ReactComponent as NextButton } from '@assets/arrow_right.svg';
+import CoursesType from '@/typing/typing';
 
 type hoverStateType = {
   prev: boolean;
   next: boolean;
 };
 
-const Pagination = () => {
+interface PaginationProps {
+  courseCount: number;
+  courses: CoursesType[];
+  count: number;
+  setOffset: React.Dispatch<React.SetStateAction<number>>;
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const Pagination: React.FC<PaginationProps> = ({
+  courseCount,
+  courses,
+  count,
+  setOffset,
+  currentPage,
+  setCurrentPage,
+}) => {
   const [isHover, setIsHover] = useState<hoverStateType>({ prev: false, next: false });
+  const [totalPage, setTotalPage] = useState(0);
+  const [visiblePages, setVisiblePages] = useState<number[]>(
+    Array.from({ length: 5 }, (_, i) => i + 1),
+  );
 
   const handleArrowLeftHover = () => {
-    setIsHover(prevState => ({
+    setIsHover((prevState) => ({
       ...prevState,
       prev: !prevState.prev,
     }));
   };
 
   const handleArrowRightHover = () => {
-    setIsHover(prevState => ({
+    setIsHover((prevState) => ({
       ...prevState,
       next: !prevState.next,
     }));
   };
+
+  const handleClick = (number: number) => {
+    setCurrentPage(number);
+    setOffset((number - 1) * 20);
+    const updatedVisiblePages = Array.from({ length: 5 }, (_, i) => number + i - 2);
+    setVisiblePages(updatedVisiblePages);
+  };
+
+  useEffect(() => {
+    setTotalPage(Math.ceil(courseCount / count));
+  }, [courseCount]);
 
   return (
     <Wrapper>
@@ -34,7 +66,15 @@ const Pagination = () => {
         onMouseLeave={handleArrowLeftHover}
       />
       <PageDiv>
-        <PageButton>1</PageButton>
+        {visiblePages.map((number) => (
+          <PageButton
+            key={number}
+            selectedStyle={currentPage === number}
+            onClick={() => handleClick(number)}
+          >
+            {number}
+          </PageButton>
+        ))}
       </PageDiv>
       <ArrowButton
         as={NextButton}
@@ -82,7 +122,7 @@ const PageDiv = styled.div`
   margin: 0;
 `;
 
-const PageButton = styled.button`
+const PageButton = styled.button<{ selectedStyle: boolean }>`
   width: 1.5rem;
   height: 1.5rem;
   margin: 0 6px;
@@ -98,4 +138,5 @@ const PageButton = styled.button`
     background-color: #efeffc;
     color: #524fa1;
   }
+  ${({ selectedStyle }) => selectedStyle && `background-color: #524fa1; color: #fff;`}
 `;

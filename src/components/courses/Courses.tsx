@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import CourseCard from './CourseCard';
 import Pagination from './Pagination';
@@ -8,9 +8,20 @@ import CoursesType from '@/typing/typing';
 interface CoursesProps {
   courseCount: number;
   courses: CoursesType[];
+  count: number;
+  setOffset: React.Dispatch<React.SetStateAction<number>>;
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const Courses: React.FC<CoursesProps> = ({courseCount, courses}) => {
+const Courses: React.FC<CoursesProps> = ({
+  courseCount,
+  courses,
+  count,
+  setOffset,
+  currentPage,
+  setCurrentPage,
+}) => {
   return (
     <Wrapper>
       <TotalDiv>
@@ -21,7 +32,14 @@ const Courses: React.FC<CoursesProps> = ({courseCount, courses}) => {
           <CourseCard key={course.id} {...course} />
         ))}
       </CourseDiv>
-      <Pagination />
+      <Pagination
+        courseCount={courseCount}
+        courses={courses}
+        count={count}
+        setOffset={setOffset}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </Wrapper>
   );
 };
