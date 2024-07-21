@@ -53,8 +53,8 @@ const Wrapper = styled.div`
   background-color: #fff;
   border: 1px solid rgb(201, 202, 204);
   border-radius: 0.25rem;
-  &:focus {
-    border: 1px solid #524fa1;
+  &:focus-within {
+    border-color: rgb(82, 79, 161);
   }
 `;
 
