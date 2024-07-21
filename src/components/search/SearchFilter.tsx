@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -30,7 +30,6 @@ const SearchFilter = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    // const existingParams = decodeURIComponent(searchParams.toString());
     const existingParams = searchParams.getAll('price');
     const clickedPrice = e.currentTarget.textContent;
     if (clickedPrice) {

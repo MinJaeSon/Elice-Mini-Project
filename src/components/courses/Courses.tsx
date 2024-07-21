@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import CourseCard from './CourseCard';
 import Pagination from './Pagination';
-import OrgAcademdyCourseListResponse from '@/typing/typing';
 import CoursesType from '@/typing/typing';
 import NoResult from '../NoResult';
 
@@ -44,7 +43,6 @@ const Courses: React.FC<CoursesProps> = ({
         {courseCount > 20 && (
           <Pagination
             courseCount={courseCount}
-            courses={courses}
             count={count}
             setOffset={setOffset}
             currentPage={currentPage}

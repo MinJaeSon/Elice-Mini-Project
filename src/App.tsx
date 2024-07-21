@@ -12,7 +12,6 @@ function App() {
   const [courses, setCourses] = useState([]);
   const [courseCount, setCourseCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(0);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const price = searchParams.getAll('price');
@@ -63,6 +62,7 @@ function App() {
         setOffset={setOffset}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
+        searchParams={searchParams}
       />
     </div>
   );

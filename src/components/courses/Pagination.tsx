@@ -2,18 +2,14 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as PrevButton } from '@assets/arrow_left.svg';
 import { ReactComponent as NextButton } from '@assets/arrow_right.svg';
-import CoursesType from '@/typing/typing';
 
 type hoverStateType = {
   prev: boolean;
   next: boolean;
 };
 
-type visiblePagesType = {};
-
 interface PaginationProps {
   courseCount: number;
-  courses: CoursesType[];
   count: number;
   setOffset: React.Dispatch<React.SetStateAction<number>>;
   currentPage: number;
@@ -23,7 +19,6 @@ interface PaginationProps {
 
 const Pagination: React.FC<PaginationProps> = ({
   courseCount,
-  courses,
   count,
   setOffset,
   currentPage,
@@ -79,7 +74,6 @@ const Pagination: React.FC<PaginationProps> = ({
 
   useEffect(() => {
     setTotalPage(Math.ceil(courseCount / count));
-    console.log('totalPage:', totalPage);
   }, [courseCount, searchParams]);
 
   useEffect(() => {
