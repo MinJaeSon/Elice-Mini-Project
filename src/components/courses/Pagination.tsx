@@ -61,7 +61,9 @@ const Pagination: React.FC<PaginationProps> = ({
     if (currentPage === 1) return;
     setCurrentPage((prev) => prev - 1);
     setOffset((currentPage - 2) * 20);
-    const updatedVisiblePages = Array.from({ length: 5 }, (_, i) => currentPage + i - 3);
+    const updatedVisiblePages = Array.from({ length: 5 }, (_, i) =>
+      currentPage > 3 ? currentPage + i - 3 : i + 1,
+    );
     setVisiblePages(updatedVisiblePages);
   };
 
@@ -69,7 +71,9 @@ const Pagination: React.FC<PaginationProps> = ({
     if (currentPage === totalPage) return;
     setCurrentPage((prev) => prev + 1);
     setOffset(currentPage * 20);
-    const updatedVisiblePages = Array.from({ length: 5 }, (_, i) => currentPage + i - 1);
+    const updatedVisiblePages = Array.from({ length: 5 }, (_, i) =>
+      currentPage < totalPage - 2 ? currentPage + i - 1 : totalPage - 4 + i,
+    );
     setVisiblePages(updatedVisiblePages);
   };
 
