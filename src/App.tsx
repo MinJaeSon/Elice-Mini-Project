@@ -3,7 +3,7 @@ import './App.css';
 import SeachHeader from '@/components/search/SeachHeader';
 import Courses from '@/components/courses/Courses';
 import { useSearchParams } from 'react-router-dom';
-import api from './api/api';
+import api from '@api/api';
 
 const COUNT = 20;
 

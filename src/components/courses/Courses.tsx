@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import CourseCard from './CourseCard';
-import Pagination from './Pagination';
+import CourseCard from '@components/courses/CourseCard';
+import Pagination from '@components/courses/Pagination';
 import CoursesType from '@/typing/typing';
-import NoResult from '../NoResult';
+import NoResult from '@components/NoResult';
 
 interface CoursesProps {
   courseCount: number;

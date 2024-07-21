@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import searchIcon from '@assets/search_icon.svg';
 import { useDebounce } from '@/hooks/useDebounce';
