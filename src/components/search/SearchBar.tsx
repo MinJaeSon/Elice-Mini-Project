@@ -16,9 +16,6 @@ const SearchBar = () => {
   const handleUrlQuery = () => {
     if (searchParams.has('keyword')) {
       searchParams.set('keyword', debouncedKeyword);
-      if (!debouncedKeyword) {
-        searchParams.delete('keyword');
-      }
     } else {
       searchParams.append('keyword', debouncedKeyword);
     }
