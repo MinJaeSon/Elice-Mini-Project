@@ -2,7 +2,7 @@
 
 ## 시연영상
 
-<video controls src="엘카데미 _ AI시대 생존을 위한 첫 사수! - Chrome 2024-07-22 04-51-39.mp4" title="시연영상"></video>
+[시연영상 보러가기](https://youtu.be/cjLFXDn8AY0)
 
 ## Skills
 
