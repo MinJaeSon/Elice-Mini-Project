@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ReactComponent as PrevButton } from '@assets/arrow_left.svg';
 import { ReactComponent as NextButton } from '@assets/arrow_right.svg';
 
-type hoverStateType = {
+type HoverStateType = {
   prev: boolean;
   next: boolean;
 };
@@ -25,7 +25,7 @@ const Pagination: React.FC<PaginationProps> = ({
   setCurrentPage,
   searchParams,
 }) => {
-  const [isHover, setIsHover] = useState<hoverStateType>({ prev: false, next: false });
+  const [isHover, setIsHover] = useState<HoverStateType>({ prev: false, next: false });
   const [totalPage, setTotalPage] = useState(0);
   const [visiblePages, setVisiblePages] = useState<number[]>([]);
 
