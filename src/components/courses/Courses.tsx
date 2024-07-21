@@ -12,6 +12,7 @@ interface CoursesProps {
   setOffset: React.Dispatch<React.SetStateAction<number>>;
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  searchParams: URLSearchParams;
 }
 
 const Courses: React.FC<CoursesProps> = ({
@@ -21,6 +22,7 @@ const Courses: React.FC<CoursesProps> = ({
   setOffset,
   currentPage,
   setCurrentPage,
+  searchParams,
 }) => {
   const ref = useRef<HTMLDivElement | null>(null);
 
@@ -38,14 +40,17 @@ const Courses: React.FC<CoursesProps> = ({
           <CourseCard key={course.id} {...course} />
         ))}
       </CourseDiv>
-      <Pagination
-        courseCount={courseCount}
-        courses={courses}
-        count={count}
-        setOffset={setOffset}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+      {courseCount > 20 && (
+        <Pagination
+          courseCount={courseCount}
+          courses={courses}
+          count={count}
+          setOffset={setOffset}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          searchParams={searchParams}
+        />
+      )}
     </Wrapper>
   );
 };
