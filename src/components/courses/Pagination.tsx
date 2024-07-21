@@ -100,7 +100,7 @@ const Pagination: React.FC<PaginationProps> = ({
             selectedStyle={currentPage === number}
             onClick={() => handleClick(number)}
           >
-            {number}
+            <span>{number}</span>
           </PageButton>
         ))}
       </PageDiv>
@@ -168,4 +168,8 @@ const PageButton = styled.button<{ selectedStyle: boolean }>`
     color: #524fa1;
   }
   ${({ selectedStyle }) => selectedStyle && `background-color: #524fa1; color: #fff;`}
+  span {
+    display: flex;
+    justify-content: center;
+  }
 `;
