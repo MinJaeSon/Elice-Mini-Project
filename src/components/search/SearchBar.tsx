@@ -18,7 +18,7 @@ const SearchBar = () => {
     if (searchParams.has('keyword')) {
       searchParams.set('keyword', debouncedKeyword);
     } else {
-      searchParams.append('keyword', debouncedKeyword);
+      if (debouncedKeyword) searchParams.append('keyword', debouncedKeyword);
     }
     setSearchParams(searchParams);
   };
