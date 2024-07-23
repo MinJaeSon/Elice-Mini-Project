@@ -40,7 +40,7 @@ const Pagination: React.FC<PaginationProps> = ({
 
   const handlePageClick = (number: number) => {
     setCurrentPage(number);
-    setOffset((number - 1) * 20);
+    setOffset((number - 1) * count);
     const updatedVisiblePages = Array.from({ length: 5 }, (_, i) =>
       number <= 2 ? i + 1 : number >= totalPage - 1 ? totalPage - 4 + i : number + i - 2,
     );
@@ -50,7 +50,7 @@ const Pagination: React.FC<PaginationProps> = ({
   const handlePrevPage = () => {
     if (currentPage === 1) return;
     setCurrentPage((prev) => prev - 1);
-    setOffset((currentPage - 2) * 20);
+    setOffset((currentPage - 2) * count);
     const updatedVisiblePages = Array.from({ length: 5 }, (_, i) =>
       currentPage > 3 ? currentPage + i - 3 : i + 1,
     );
@@ -60,7 +60,7 @@ const Pagination: React.FC<PaginationProps> = ({
   const handleNextPage = () => {
     if (currentPage === totalPage) return;
     setCurrentPage((prev) => prev + 1);
-    setOffset(currentPage * 20);
+    setOffset(currentPage * count);
     const updatedVisiblePages = Array.from({ length: 5 }, (_, i) =>
       currentPage < totalPage - 2 ? currentPage + i - 1 : totalPage - 4 + i,
     );
