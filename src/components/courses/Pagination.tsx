@@ -8,6 +8,8 @@ type HoverStateType = {
   next: boolean;
 };
 
+type ArrowDirection= 'prev' | 'next';
+
 interface PaginationProps {
   courseCount: number;
   count: number;
@@ -29,17 +31,10 @@ const Pagination: React.FC<PaginationProps> = ({
   const [totalPage, setTotalPage] = useState(0);
   const [visiblePages, setVisiblePages] = useState<number[]>([]);
 
-  const handleArrowLeftHover = () => {
+  const handleArrowHover = (direction: ArrowDirection) => {
     setIsHover((prevState) => ({
       ...prevState,
-      prev: !prevState.prev,
-    }));
-  };
-
-  const handleArrowRightHover = () => {
-    setIsHover((prevState) => ({
-      ...prevState,
-      next: !prevState.next,
+      direction: !prevState[direction],
     }));
   };
 
@@ -87,8 +82,8 @@ const Pagination: React.FC<PaginationProps> = ({
         as={PrevButton}
         stroke={currentPage === 1 ? '#ccc' : isHover.prev ? '#524fa1' : '#666'}
         disable={currentPage === 1}
-        onMouseOver={handleArrowLeftHover}
-        onMouseLeave={handleArrowLeftHover}
+        onMouseOver={() => handleArrowHover('prev')}
+        onMouseLeave={() => handleArrowHover('prev')}
         onClick={handlePrevPage}
       />
       <PageDiv>
@@ -106,8 +101,8 @@ const Pagination: React.FC<PaginationProps> = ({
         as={NextButton}
         stroke={currentPage === totalPage ? '#ccc' : isHover.next ? '#524fa1' : '#666'}
         disable={currentPage === totalPage}
-        onMouseOver={handleArrowRightHover}
-        onMouseLeave={handleArrowRightHover}
+        onMouseOver={() => handleArrowHover('next')}
+        onMouseLeave={() => handleArrowHover('next')}
         onClick={handleNextPage}
       />
     </Wrapper>
