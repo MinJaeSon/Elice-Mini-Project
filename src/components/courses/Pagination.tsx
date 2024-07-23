@@ -38,7 +38,7 @@ const Pagination: React.FC<PaginationProps> = ({
     }));
   };
 
-  const handleClick = (number: number) => {
+  const handlePageClick = (number: number) => {
     setCurrentPage(number);
     setOffset((number - 1) * 20);
     const updatedVisiblePages = Array.from({ length: 5 }, (_, i) =>
@@ -91,7 +91,7 @@ const Pagination: React.FC<PaginationProps> = ({
           <PageButton
             key={number}
             selectedStyle={currentPage === number}
-            onClick={() => handleClick(number)}
+            onClick={() => handlePageClick(number)}
           >
             <span>{number}</span>
           </PageButton>
